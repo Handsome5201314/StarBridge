@@ -28,6 +28,17 @@ export function LevelPage() {
 
   const GameComponent = level ? levelComponents[level.mechanic] : null
 
+  if (level?.mechanic === 'sentence_blocks' && GameComponent) {
+    return (
+      <GameComponent
+        difficulty={level.difficulty}
+        levelId={level.id}
+        onComplete={handleComplete}
+        onExit={() => navigate('/game')}
+      />
+    )
+  }
+
   return (
     <PageShell activePath="/game">
       <Button as={Link} to="/game" variant="ghost" icon={<ArrowLeft size={20} />}>
