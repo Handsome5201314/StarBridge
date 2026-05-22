@@ -56,7 +56,7 @@ h3 {
 
 .app-shell {
   min-height: 100vh;
-  padding: 24px;
+  padding: 18px 24px;
 }
 
 .app-header {
@@ -65,7 +65,7 @@ h3 {
   justify-content: space-between;
   gap: 24px;
   max-width: 1480px;
-  margin: 0 auto 22px;
+  margin: 0 auto 16px;
 }
 
 .brand,
@@ -79,13 +79,13 @@ h3 {
 }
 
 .brand {
-  min-height: 70px;
+  min-height: 62px;
   padding: 12px 24px;
   border-radius: 8px;
   color: var(--color-text);
   background: var(--color-paper);
   box-shadow: var(--shadow-soft);
-  font-size: 34px;
+  font-size: 30px;
   font-weight: 900;
 }
 
@@ -108,7 +108,7 @@ h3 {
 }
 
 .nav-link {
-  min-height: 56px;
+  min-height: 52px;
   padding: 0 22px;
   border-radius: 8px;
   background: rgba(255, 246, 230, 0.86);
@@ -163,22 +163,26 @@ h3 {
 
 .hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 320px;
-  gap: 18px;
-  margin-bottom: 18px;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 16px;
+  margin-bottom: 16px;
 }
 
 .buddy-card {
   display: grid;
   align-content: center;
-  min-height: 260px;
-  gap: 18px;
+  min-height: 210px;
+  gap: 12px;
   overflow: hidden;
 }
 
 .buddy-card p:not(.section-label) {
   max-width: 680px;
-  font-size: 22px;
+  font-size: 20px;
+}
+
+.buddy-card h1 {
+  font-size: clamp(38px, 5vw, 58px);
 }
 
 .buddy-mark {
@@ -196,7 +200,7 @@ h3 {
   display: grid;
   align-content: center;
   justify-items: center;
-  gap: 18px;
+  gap: 12px;
   text-align: center;
 }
 
@@ -211,8 +215,8 @@ h3 {
 }
 
 .goal-stars svg {
-  width: 54px;
-  height: 54px;
+  width: 46px;
+  height: 46px;
   fill: #fff8db;
   stroke-width: 1.8;
 }
@@ -226,12 +230,12 @@ h3 {
 
 .side-rail {
   display: grid;
-  gap: 18px;
+  gap: 14px;
   align-content: start;
 }
 
 .rail-item {
-  min-height: 128px;
+  min-height: 108px;
   flex-direction: column;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.42);
@@ -252,8 +256,8 @@ h3 {
 
 .map-panel {
   display: grid;
-  gap: 24px;
-  min-height: 520px;
+  gap: 18px;
+  min-height: 420px;
   background:
     linear-gradient(135deg, rgba(150, 195, 138, 0.35), rgba(121, 189, 224, 0.2)),
     var(--color-paper);
@@ -268,7 +272,7 @@ h3 {
 
 .island-card {
   display: grid;
-  min-height: 330px;
+  min-height: 270px;
   align-content: end;
   gap: 10px;
   padding: 22px;
@@ -288,7 +292,7 @@ h3 {
 
 .island-visual {
   display: block;
-  width: min(150px, 70%);
+  width: min(124px, 70%);
   aspect-ratio: 1;
   margin: 0 auto 18px;
   border-radius: 40%;
