@@ -341,6 +341,231 @@ h3 {
   margin-top: 18px;
 }
 
+.level-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 18px;
+  align-items: start;
+}
+
+.level-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.mini-game {
+  display: grid;
+  gap: 20px;
+}
+
+.game-copy {
+  display: grid;
+  gap: 10px;
+}
+
+.game-copy h2 {
+  font-size: clamp(26px, 4vw, 42px);
+  font-weight: 950;
+}
+
+.speak-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: fit-content;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 8px;
+  color: var(--color-blue-deep);
+  background: #dff2fa;
+  border: 2px solid rgba(255, 255, 255, 0.72);
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.sentence-board,
+.word-bank,
+.choice-grid,
+.game-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.sentence-board {
+  min-height: 104px;
+  align-items: center;
+  padding: 18px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.52);
+  border: 2px dashed rgba(123, 88, 54, 0.2);
+}
+
+.sentence-slot,
+.word-block,
+.choice-card {
+  min-height: 64px;
+  border-radius: 8px;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.sentence-slot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 142px;
+  padding: 0 22px;
+  color: var(--color-muted);
+  background: #fffaf0;
+  border: 2px dashed rgba(123, 88, 54, 0.18);
+}
+
+.word-block,
+.choice-card {
+  padding: 0 24px;
+  color: var(--color-text);
+  background: #fffaf0;
+  border: 2px solid rgba(255, 255, 255, 0.75);
+  box-shadow: var(--shadow-soft);
+  cursor: pointer;
+}
+
+.word-block:disabled {
+  color: rgba(74, 51, 38, 0.45);
+  background: rgba(255, 250, 240, 0.58);
+  cursor: default;
+  box-shadow: none;
+}
+
+.choice-card.is-selected {
+  background: #bfe3c1;
+  outline: 4px solid rgba(255, 255, 255, 0.74);
+}
+
+.gentle-feedback,
+.success-note {
+  padding: 14px 18px;
+  border-radius: 8px;
+  font-weight: 800;
+}
+
+.gentle-feedback {
+  color: var(--color-blue-deep);
+  background: #e4f4fb;
+}
+
+.success-note {
+  color: #4d6f2d;
+  background: #e9f4df;
+}
+
+.emotion-scene {
+  display: grid;
+  min-height: 170px;
+  place-items: center;
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.86) 0 70px, transparent 72px),
+    #bde7fa;
+}
+
+.emotion-face {
+  display: grid;
+  width: 138px;
+  height: 138px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--color-blue-deep);
+  background: #fffaf0;
+  border: 8px solid #85c7e6;
+  font-size: 24px;
+  font-weight: 950;
+}
+
+.runner-track {
+  position: relative;
+  min-height: 150px;
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.36) 0 12px, transparent 12px 30px),
+    #cfe9c8;
+  overflow: hidden;
+}
+
+.runner-character,
+.runner-flag {
+  position: absolute;
+  bottom: 30px;
+  display: block;
+}
+
+.runner-character {
+  left: 48px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50% 50% 44% 44%;
+  background: #ffe1a6;
+  border: 7px solid #fffaf0;
+}
+
+.runner-flag {
+  right: 46px;
+  width: 56px;
+  height: 78px;
+  border-left: 8px solid #9b7049;
+}
+
+.runner-flag::after {
+  content: '';
+  display: block;
+  width: 54px;
+  height: 34px;
+  background: var(--color-primary);
+  border-radius: 8px 8px 8px 0;
+}
+
+.reward-panel {
+  display: grid;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.reward-row,
+.reward-card-mini {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.48);
+}
+
+.reward-row svg,
+.reward-card-mini svg {
+  flex: 0 0 auto;
+  color: var(--color-primary-deep);
+}
+
+.reward-card-mini div,
+.completion-callout {
+  display: grid;
+  gap: 6px;
+}
+
+.reward-card-mini span,
+.completion-callout span {
+  color: var(--color-muted);
+}
+
+.completion-callout {
+  padding-top: 14px;
+  border-top: 2px dashed rgba(123, 88, 54, 0.2);
+}
+
 .button {
   width: fit-content;
   min-height: 56px;
@@ -380,7 +605,8 @@ h3 {
   .app-header,
   .hero-grid,
   .world-layout,
-  .dashboard-grid {
+  .dashboard-grid,
+  .level-layout {
     grid-template-columns: 1fr;
   }
 
