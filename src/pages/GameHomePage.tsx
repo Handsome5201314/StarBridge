@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom'
-import { Map, Medal, Sparkles, Star } from 'lucide-react'
+import { Medal, Sparkles, Star } from 'lucide-react'
 import { Button } from '../shared/components/Button'
 import { Card } from '../shared/components/Card'
 import { PageShell } from '../shared/components/PageShell'
+import { artAssets, islandArtById } from '../shared/assets/art'
 import { islands } from '../shared/data/islands'
 import { useGameStore } from '../shared/store/useGameStore'
 import { getRecommendedLevel } from '../shared/utils/progress'
@@ -16,20 +17,25 @@ export function GameHomePage() {
     <PageShell activePath="/game">
       <section className="hero-grid" aria-labelledby="home-title">
         <Card className="buddy-card">
-          <div className="buddy-mark" aria-hidden="true">
-            <Sparkles size={34} />
+          <div className="buddy-card-copy">
+            <div className="buddy-mark" aria-hidden="true">
+              <Sparkles size={34} />
+            </div>
+            <p className="section-label">星桥小助手</p>
+            <h1 id="home-title">你好，小探险家</h1>
+            <p>
+              今天我们一起收集 3 颗星星，练习表达、情绪和礼貌互动。
+            </p>
+            <div className="hero-actions">
+              <Button as={Link} to={`/level/${recommendedLevel.id}`} icon={<Star size={22} />}>
+                开始今日任务
+              </Button>
+              <Button variant="ghost" onClick={actions.resetDemoProgress}>
+                重置 Demo 进度
+              </Button>
+            </div>
           </div>
-          <p className="section-label">星桥小助手</p>
-          <h1 id="home-title">你好，小探险家</h1>
-          <p>
-            今天我们一起收集 3 颗星星，练习表达、情绪和礼貌互动。
-          </p>
-          <Button as={Link} to={`/level/${recommendedLevel.id}`} icon={<Star size={22} />}>
-            开始今日任务
-          </Button>
-          <Button variant="ghost" onClick={actions.resetDemoProgress}>
-            重置 Demo 进度
-          </Button>
+          <img className="buddy-art" src={artAssets.deer} alt="" />
         </Card>
 
         <Card className="goal-card">
@@ -47,7 +53,7 @@ export function GameHomePage() {
       <section className="world-layout" aria-labelledby="map-title">
         <Card className="side-rail" aria-label="功能入口">
           <Link className="rail-item is-active" to="/game">
-            <Map />
+            <img className="rail-art" src={artAssets.map} alt="" />
             地图
           </Link>
           <Link className="rail-item" to="/achievements">
@@ -72,7 +78,7 @@ export function GameHomePage() {
                 key={island.id}
                 to={island.route}
               >
-                <span className={`island-visual ${islandVisuals[island.id]}`} aria-hidden="true" />
+                <img className="island-art" src={islandArtById[island.id]} alt="" />
                 <strong>{island.name}</strong>
                 <span>{island.description}</span>
               </Link>
@@ -81,6 +87,7 @@ export function GameHomePage() {
         </Card>
 
         <Card className="current-level-card">
+          <img className="current-level-art" src={artAssets.currentLevel} alt="" />
           <p className="section-label">当前关卡</p>
           <h2>{recommendedIsland?.name}</h2>
           <p>{recommendedLevel.title}</p>
@@ -91,10 +98,4 @@ export function GameHomePage() {
       </section>
     </PageShell>
   )
-}
-
-const islandVisuals = {
-  sentence_blocks: 'blocks',
-  emotion_match: 'lake',
-  polite_runner: 'town',
 }

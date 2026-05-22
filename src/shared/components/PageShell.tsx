@@ -1,6 +1,7 @@
 import type { PropsWithChildren } from 'react'
 import { Link } from 'react-router-dom'
-import { Home, Map, Trophy, Users } from 'lucide-react'
+import { Map, Trophy, Users } from 'lucide-react'
+import { artAssets } from '../assets/art'
 
 const navItems = [
   { to: '/game', label: '游戏世界', icon: Map },
@@ -17,10 +18,7 @@ export function PageShell({ activePath, children }: PageShellProps) {
     <div className="app-shell">
       <header className="app-header">
         <Link className="brand" to="/game" aria-label="星桥计划首页">
-          <span className="brand-mark" aria-hidden="true">
-            <Home size={26} />
-          </span>
-          <span>星桥计划</span>
+          <img className="brand-logo" src={artAssets.logo} alt="" />
         </Link>
         <nav className="top-nav" aria-label="主导航">
           {navItems.map((item) => {

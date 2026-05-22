@@ -1,6 +1,7 @@
 import { Lock, Medal } from 'lucide-react'
 import { Card } from '../../shared/components/Card'
 import { ProgressBar } from '../../shared/components/ProgressBar'
+import { artAssets } from '../../shared/assets/art'
 import { badges } from '../../shared/data/badges'
 import { useGameStore } from '../../shared/store/useGameStore'
 
@@ -9,6 +10,7 @@ export function BadgeWall() {
 
   return (
     <Card className="badge-wall">
+      <img className="badge-wall-art" src={artAssets.bandage} alt="" />
       <p className="section-label">情绪徽章墙</p>
       <div className="badge-list">
         {badges.map((badge) => {

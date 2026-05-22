@@ -1,6 +1,7 @@
 import { Sparkles } from 'lucide-react'
 import { Card } from '../../shared/components/Card'
 import { ProgressBar } from '../../shared/components/ProgressBar'
+import { artAssets } from '../../shared/assets/art'
 import { useGameStore } from '../../shared/store/useGameStore'
 
 const stageNames = ['小星鹿', '成长中', '闪耀星鹿']
@@ -16,9 +17,9 @@ export function BuddyGrowthPanel() {
     <Card className="buddy-growth-panel">
       <p className="section-label">伙伴成长</p>
       <div className="buddy-growth-visual" aria-hidden="true">
-        <span className="deer-stage deer-stage-small" />
+        <img className="buddy-growth-deer is-small" src={artAssets.deer} alt="" />
         <Sparkles />
-        <span className="deer-stage deer-stage-large" />
+        <img className="buddy-growth-deer is-large" src={artAssets.deer} alt="" />
       </div>
       <div className="buddy-growth-copy">
         <strong>成长阶段：{stageNames[stageIndex]}</strong>
