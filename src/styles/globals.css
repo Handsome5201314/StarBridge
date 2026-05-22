@@ -566,6 +566,245 @@ h3 {
   border-top: 2px dashed rgba(123, 88, 54, 0.2);
 }
 
+.achievement-layout,
+.parent-layout {
+  display: grid;
+  gap: 18px;
+}
+
+.achievement-layout {
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
+}
+
+.metric-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.metric-row div {
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+  padding: 18px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.45);
+  text-align: center;
+}
+
+.metric-row svg {
+  color: var(--color-primary-deep);
+}
+
+.metric-row strong {
+  color: var(--color-primary-deep);
+  font-size: 38px;
+  line-height: 1;
+}
+
+.achievement-summary,
+.badge-wall,
+.collection-panel,
+.buddy-growth-panel,
+.learning-summary,
+.practice-panel,
+.feedback-panel {
+  display: grid;
+  gap: 18px;
+}
+
+.achievement-note,
+.feedback-note,
+.practice-tip {
+  color: var(--color-muted);
+}
+
+.badge-list,
+.skill-list,
+.practice-list,
+.feedback-task-list {
+  display: grid;
+  gap: 14px;
+}
+
+.badge-row,
+.skill-row,
+.feedback-task {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  padding: 14px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.48);
+}
+
+.badge-row div,
+.skill-row div,
+.feedback-task div {
+  display: grid;
+  gap: 6px;
+}
+
+.badge-row span,
+.skill-row span,
+.feedback-task span {
+  color: var(--color-muted);
+}
+
+.badge-icon,
+.task-status,
+.skill-row svg {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--color-muted);
+  background: #efe2c8;
+}
+
+.badge-icon.is-unlocked,
+.task-status.is-done,
+.skill-row svg {
+  color: #4d6f2d;
+  background: #cce8bf;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 16px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e2d4bb;
+}
+
+.progress-bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--color-green), var(--color-primary));
+}
+
+.collection-header,
+.practice-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.collection-header svg,
+.practice-heading svg {
+  color: var(--color-blue-deep);
+}
+
+.card-collection {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.collection-card {
+  display: grid;
+  gap: 8px;
+  min-height: 170px;
+  align-content: start;
+  padding: 14px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.56);
+  border: 2px solid rgba(255, 255, 255, 0.68);
+}
+
+.collection-card.is-locked {
+  color: rgba(74, 51, 38, 0.48);
+  background: rgba(255, 255, 255, 0.28);
+  border-style: dashed;
+}
+
+.buddy-growth-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  min-height: 120px;
+}
+
+.buddy-growth-visual svg {
+  color: var(--color-primary);
+}
+
+.deer-stage {
+  display: block;
+  border-radius: 52% 52% 44% 44%;
+  background: #ffe1a6;
+  border: 7px solid #fffaf0;
+}
+
+.deer-stage-small {
+  width: 58px;
+  height: 58px;
+}
+
+.deer-stage-large {
+  width: 92px;
+  height: 92px;
+}
+
+.buddy-growth-copy {
+  display: grid;
+  gap: 10px;
+}
+
+.parent-layout {
+  grid-template-columns: minmax(280px, 0.86fr) minmax(0, 1.4fr) minmax(300px, 0.9fr);
+  align-items: start;
+}
+
+.parent-side {
+  display: grid;
+  gap: 18px;
+}
+
+.progress-card {
+  display: grid;
+  gap: 10px;
+}
+
+.progress-card strong {
+  color: var(--color-primary-deep);
+  font-size: 36px;
+}
+
+.practice-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 14px;
+  padding: 16px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.48);
+}
+
+.practice-item div {
+  display: grid;
+  gap: 8px;
+}
+
+.practice-item ol {
+  margin: 0;
+  padding-left: 22px;
+}
+
+.practice-index {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff8dc;
+  background: var(--color-blue-deep);
+  font-weight: 950;
+}
+
 .button {
   width: fit-content;
   min-height: 56px;
@@ -606,7 +845,9 @@ h3 {
   .hero-grid,
   .world-layout,
   .dashboard-grid,
-  .level-layout {
+  .level-layout,
+  .achievement-layout,
+  .parent-layout {
     grid-template-columns: 1fr;
   }
 
@@ -642,7 +883,15 @@ h3 {
   }
 
   .island-grid,
-  .side-rail {
+  .side-rail,
+  .metric-row,
+  .card-collection {
+    grid-template-columns: 1fr;
+  }
+
+  .badge-row,
+  .skill-row,
+  .feedback-task {
     grid-template-columns: 1fr;
   }
 

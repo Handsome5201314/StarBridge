@@ -14,7 +14,8 @@ export function getFallbackPracticeSuggestions(
     ? input.skillTags
     : ['express_need', 'recognize_emotion', 'use_polite_words']
 
-  const dedupedSkills = Array.from(new Set(orderedSkills))
+  const defaultSkills: SkillTag[] = ['express_need', 'recognize_emotion', 'use_polite_words']
+  const dedupedSkills = Array.from(new Set<SkillTag>([...orderedSkills, ...defaultSkills]))
   const suggestions = dedupedSkills
     .map((skillTag) => practiceSuggestionTemplates[skillTag])
     .filter(Boolean)

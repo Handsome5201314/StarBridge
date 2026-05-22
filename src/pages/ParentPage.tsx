@@ -1,29 +1,32 @@
-import { Card } from '../shared/components/Card'
+import { AIPracticeSuggestions } from '../features/parent/AIPracticeSuggestions'
+import { ParentFeedbackPanel } from '../features/parent/ParentFeedbackPanel'
+import { TodayLearningSummary } from '../features/parent/TodayLearningSummary'
 import { PageShell } from '../shared/components/PageShell'
+import { useGameStore } from '../shared/store/useGameStore'
+import { getCompletedLevels } from '../shared/utils/progress'
 
 export function ParentPage() {
+  const { progress } = useGameStore()
+  const completedLevels = getCompletedLevels(progress)
+
   return (
     <PageShell activePath="/parent">
       <div className="page-heading">
         <p className="section-label">家长端</p>
         <h1>游戏中学习，生活中成长</h1>
       </div>
-      <section className="dashboard-grid" aria-label="家长端概览">
-        <Card>
-          <p className="section-label">今日学习摘要</p>
-          <h2>完成关卡后生成</h2>
-          <p>这里会把孩子今天练过的能力翻译成家长能理解的语言。</p>
-        </Card>
-        <Card>
-          <p className="section-label">AI 陪练建议</p>
-          <h2>本地 fallback 模板</h2>
-          <p>Demo 阶段先用稳定模板生成现实练习建议，后续可接真实 AI。</p>
-        </Card>
-        <Card>
-          <p className="section-label">家长反馈</p>
-          <h2>已练习 / 待练习</h2>
-          <p>家长打卡后，现实练习会回流为伙伴特别成长。</p>
-        </Card>
+      <section className="parent-layout" aria-label="家长端概览">
+        <TodayLearningSummary />
+        <AIPracticeSuggestions />
+        <aside className="parent-side">
+          <div className="paper-card progress-card">
+            <p className="section-label">今天的进度</p>
+            <strong>{progress.todayStars} 颗星星</strong>
+            <span>{completedLevels.length} 个关卡</span>
+            <span>{progress.collectedCardIds.length} 张图鉴卡</span>
+          </div>
+          <ParentFeedbackPanel />
+        </aside>
       </section>
     </PageShell>
   )

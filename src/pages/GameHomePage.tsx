@@ -3,8 +3,15 @@ import { Map, Medal, Sparkles, Star } from 'lucide-react'
 import { Button } from '../shared/components/Button'
 import { Card } from '../shared/components/Card'
 import { PageShell } from '../shared/components/PageShell'
+import { islands } from '../shared/data/islands'
+import { useGameStore } from '../shared/store/useGameStore'
+import { getRecommendedLevel } from '../shared/utils/progress'
 
 export function GameHomePage() {
+  const { progress, actions } = useGameStore()
+  const recommendedLevel = getRecommendedLevel(progress)
+  const recommendedIsland = islands.find((island) => island.id === recommendedLevel.islandId)
+
   return (
     <PageShell activePath="/game">
       <section className="hero-grid" aria-labelledby="home-title">
@@ -17,8 +24,11 @@ export function GameHomePage() {
           <p>
             今天我们一起收集 3 颗星星，练习表达、情绪和礼貌互动。
           </p>
-          <Button as={Link} to="/level/sentence-basic-01" icon={<Star size={22} />}>
+          <Button as={Link} to={`/level/${recommendedLevel.id}`} icon={<Star size={22} />}>
             开始今日任务
+          </Button>
+          <Button variant="ghost" onClick={actions.resetDemoProgress}>
+            重置 Demo 进度
           </Button>
         </Card>
 
@@ -30,7 +40,7 @@ export function GameHomePage() {
             <Star />
           </div>
           <strong>收集 3 颗星星</strong>
-          <span>当前关卡：句子积木岛</span>
+          <span>今日已收集：{progress.todayStars} 颗</span>
         </Card>
       </section>
 
@@ -56,33 +66,35 @@ export function GameHomePage() {
             <h2 id="map-title">三座表达成长岛屿</h2>
           </div>
           <div className="island-grid">
-            <Link className="island-card island-card-primary" to="/level/sentence-basic-01">
-              <span className="island-visual blocks" aria-hidden="true" />
-              <strong>句子积木岛</strong>
-              <span>用词语积木拼出自己的想法</span>
-            </Link>
-            <Link className="island-card" to="/level/emotion-basic-01">
-              <span className="island-visual lake" aria-hidden="true" />
-              <strong>情绪消消乐湖</strong>
-              <span>认识开心、难过、生气和平静</span>
-            </Link>
-            <Link className="island-card" to="/level/polite-basic-01">
-              <span className="island-visual town" aria-hidden="true" />
-              <strong>礼貌语跑酷镇</strong>
-              <span>收集请、谢谢和对不起</span>
-            </Link>
+            {islands.map((island, index) => (
+              <Link
+                className={index === 0 ? 'island-card island-card-primary' : 'island-card'}
+                key={island.id}
+                to={island.route}
+              >
+                <span className={`island-visual ${islandVisuals[island.id]}`} aria-hidden="true" />
+                <strong>{island.name}</strong>
+                <span>{island.description}</span>
+              </Link>
+            ))}
           </div>
         </Card>
 
         <Card className="current-level-card">
           <p className="section-label">当前关卡</p>
-          <h2>句子积木岛</h2>
-          <p>学会友好地表达自己的需求。</p>
-          <Button as={Link} to="/level/sentence-basic-01">
+          <h2>{recommendedIsland?.name}</h2>
+          <p>{recommendedLevel.title}</p>
+          <Button as={Link} to={`/level/${recommendedLevel.id}`}>
             进入关卡
           </Button>
         </Card>
       </section>
     </PageShell>
   )
+}
+
+const islandVisuals = {
+  sentence_blocks: 'blocks',
+  emotion_match: 'lake',
+  polite_runner: 'town',
 }
