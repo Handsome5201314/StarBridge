@@ -1,6 +1,6 @@
 import type { CSSProperties, PropsWithChildren } from 'react'
 import { Link } from 'react-router-dom'
-import { Medal, Sparkles } from 'lucide-react'
+import { Sparkles } from 'lucide-react'
 import { Card } from '../../shared/components/Card'
 import { PageShell } from '../../shared/components/PageShell'
 import { artAssets } from '../../shared/assets/art'
@@ -14,19 +14,19 @@ const railItems = [
     id: 'map',
     to: '/game',
     label: '地图',
-    art: artAssets.map,
+    art: artAssets.railMapIcon,
   },
   {
     id: 'achievements',
     to: '/achievements',
     label: '徽章',
-    icon: Medal,
+    art: artAssets.railBadgeIcon,
   },
   {
     id: 'buddy',
     to: '/buddy-chat',
     label: '伙伴',
-    icon: Sparkles,
+    art: artAssets.railBuddyIcon,
   },
 ] as const
 
@@ -40,7 +40,6 @@ export function GameDashboardFrame({ activeRail, children }: GameDashboardFrameP
       <div className="home-layout">
         <Card className="side-rail page-nav-cards home-side-nav" aria-label="功能入口">
           {railItems.map((item) => {
-            const Icon = 'icon' in item ? item.icon : null
             const isActive = item.id === activeRail
 
             return (
@@ -50,8 +49,7 @@ export function GameDashboardFrame({ activeRail, children }: GameDashboardFrameP
                 key={item.id}
                 to={item.to}
               >
-                {'art' in item ? <img className="rail-art" src={item.art} alt="" /> : null}
-                {Icon ? <Icon /> : null}
+                <img className="rail-art" src={item.art} alt="" />
                 {item.label}
               </Link>
             )
