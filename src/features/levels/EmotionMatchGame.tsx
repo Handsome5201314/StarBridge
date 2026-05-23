@@ -417,13 +417,21 @@ export function EmotionMatchGame({ levelId, onComplete, onExit }: LevelComponent
           </p>
 
           <div className="emotion-actions">
-            <button className="emotion-art-button is-hint" type="button" onClick={applyHint}>
+            <button
+              aria-label="提示"
+              className="emotion-art-button is-hint"
+              type="button"
+              onClick={applyHint}
+            >
               <img src={emotionGameArt.hintButton} alt="" />
-              <span>提示</span>
             </button>
-            <button className="emotion-art-button is-refresh" type="button" onClick={resetDeck}>
+            <button
+              aria-label="换一组"
+              className="emotion-art-button is-refresh"
+              type="button"
+              onClick={resetDeck}
+            >
               <img src={emotionGameArt.refreshButton} alt="" />
-              <span>换一组</span>
             </button>
             {allMatched && nextLevelId ? (
               <Button variant="secondary" onClick={() => navigate(`/level/${nextLevelId}`)}>
