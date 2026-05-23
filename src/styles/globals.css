@@ -165,11 +165,27 @@ h3 {
   font-weight: 950;
 }
 
+.home-layout {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.home-main-column {
+  display: grid;
+  gap: 16px;
+}
+
+.home-hero-slot,
+.home-world-slot {
+  width: 100%;
+}
+
 .hero-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 300px;
   gap: 16px;
-  margin-bottom: 16px;
 }
 
 .hero-grid-only {
@@ -257,8 +273,8 @@ h3 {
   align-items: stretch;
 }
 
-.hero-grid-only + .world-layout {
-  margin-top: 6px;
+.world-layout-map-only {
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .side-rail {
@@ -272,6 +288,21 @@ h3 {
   background: transparent;
   border-color: transparent;
   box-shadow: none;
+}
+
+.home-side-nav {
+  position: sticky;
+  top: 18px;
+  width: 100%;
+}
+
+.home-main-column .hero-grid,
+.home-main-column .world-layout {
+  margin: 0;
+}
+
+.home-main-column .buddy-card {
+  width: 100%;
 }
 
 .rail-item {
@@ -2359,6 +2390,7 @@ h3 {
 
 @media (max-width: 1100px) {
   .app-header,
+  .home-layout,
   .hero-grid,
   .world-layout,
   .dashboard-grid,
@@ -2404,6 +2436,10 @@ h3 {
   .about-side-notes {
     position: static;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-side-nav {
+    position: static;
   }
 
   .side-rail {
@@ -2494,6 +2530,14 @@ h3 {
     overflow-wrap: anywhere;
   }
 
+  .home-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .home-main-column {
+    gap: 14px;
+  }
+
   .about-stat-card p,
   .about-misunderstanding-card p,
   .about-support-card p,
@@ -2507,6 +2551,15 @@ h3 {
   .card-collection,
   .about-side-notes {
     grid-template-columns: 1fr;
+  }
+
+  .home-side-nav {
+    position: static;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .home-side-nav .rail-item {
+    min-height: 96px;
   }
 
   .about-hero {
@@ -2611,6 +2664,30 @@ h3 {
 
   .sentence-actions .button {
     width: 100%;
+  }
+
+  .home-layout {
+    gap: 14px;
+  }
+
+  .home-main-column {
+    gap: 12px;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .buddy-card {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-actions .button {
+    width: 100%;
+  }
+
+  .home-side-nav {
+    grid-template-columns: 1fr;
   }
 
   .emotion-game-stage {
