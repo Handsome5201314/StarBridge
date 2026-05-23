@@ -412,7 +412,7 @@ export function EmotionMatchGame({ levelId, onComplete, onExit }: LevelComponent
             })}
           </div>
 
-          <p className="emotion-feedback" aria-live="polite">
+          <p className="visually-hidden" aria-live="polite">
             {feedback}
           </p>
 

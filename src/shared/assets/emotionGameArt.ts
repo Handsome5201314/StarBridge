@@ -9,7 +9,7 @@ import happyRabbit from '../../assets/emotion-game/emotion-game-happy-rabbit.png
 import heart from '../../assets/emotion-game/emotion-game-heart.png'
 import helperDeer from '../../assets/emotion-game/emotion-game-helper-deer.png'
 import hintButton from '../../assets/emotion-game/emotion-game-hint-button.png'
-import island from '../../assets/emotion-game/emotion-game-island.png'
+import island from '../../assets/map-islands/emotion-lake.png'
 import proudDuck from '../../assets/emotion-game/emotion-game-proud-duck.png'
 import refreshButton from '../../assets/emotion-game/emotion-game-refresh-button.png'
 import sadCat from '../../assets/emotion-game/emotion-game-sad-cat.png'
