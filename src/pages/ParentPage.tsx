@@ -1,9 +1,8 @@
+import type { CSSProperties } from 'react'
 import { useEffect, useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Info, Map, Users } from 'lucide-react'
 import panelArt from '../assets/parent/parent-advice-panel.png'
 import parentBg from '../assets/parent/parent-papercraft-bg.png'
-import { artAssets } from '../shared/assets/art'
+import { PageShell } from '../shared/components/PageShell'
 import { useGameStore } from '../shared/store/useGameStore'
 import {
   getDeepseekParentAdvice,
@@ -11,12 +10,6 @@ import {
   getTodaySkillLabels,
   type ParentAdviceResult,
 } from '../shared/utils/parentAdvice'
-
-const navItems = [
-  { to: '/game', label: '游戏世界', icon: Map },
-  { to: '/parent', label: '家长端', icon: Users },
-  { to: '/about-autism', label: '了解来自星星的孩子', icon: Info },
-]
 
 type AdviceState =
   | { status: 'loading'; content: string; source: 'deepseek' | 'fallback' }
@@ -31,6 +24,9 @@ export function ParentPage() {
     content: fallbackAdvice,
     source: 'fallback',
   })
+  const shellStyle = {
+    '--parent-background-image': `url(${parentBg})`,
+  } as CSSProperties
 
   useEffect(() => {
     let isCurrent = true
@@ -57,31 +53,12 @@ export function ParentPage() {
   }, [fallbackAdvice, progress])
 
   return (
-    <main
-      className="parent-advice-screen"
-      style={{ backgroundImage: `url(${parentBg})` }}
+    <PageShell
+      activePath="/parent"
+      className="app-shell-parent-bg"
+      contentClassName="parent-advice-main"
+      style={shellStyle}
     >
-      <header className="app-header parent-advice-header">
-        <Link className="brand" to="/game" aria-label="星桥计划首页">
-          <img className="brand-logo" src={artAssets.logo} alt="" />
-        </Link>
-        <nav className="top-nav" aria-label="主导航">
-          {navItems.map((item) => {
-            const Icon = item.icon
-            return (
-              <Link
-                key={item.to}
-                className={item.to === '/parent' ? 'nav-link is-active' : 'nav-link'}
-                to={item.to}
-              >
-                <Icon size={20} />
-                {item.label}
-              </Link>
-            )
-          })}
-        </nav>
-      </header>
-
       <section className="parent-advice-hero" aria-labelledby="parent-advice-title">
         <div className="parent-advice-title-block">
           <h1 id="parent-advice-title">AI 陪练建议</h1>
@@ -114,6 +91,6 @@ export function ParentPage() {
           </section>
         </article>
       </section>
-    </main>
+    </PageShell>
   )
 }

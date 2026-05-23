@@ -46,7 +46,7 @@ export function LevelPage() {
   }
 
   return (
-    <PageShell activePath="/game">
+    <PageShell activePath="/game" activeRail="map">
       <Button as={Link} to="/game" variant="ghost" icon={<ArrowLeft size={20} />}>
         返回地图
       </Button>

@@ -178,7 +178,7 @@ export function BuddyChatPage() {
   }
 
   return (
-    <PageShell activePath="/game" className="app-shell-world-bg" style={shellStyle}>
+    <PageShell activePath="/buddy-chat" activeRail="buddy" className="app-shell-world-bg" style={shellStyle}>
       <div className="buddy-chat-layout">
         <aside className={collapsed ? 'buddy-chat-sidebar is-collapsed' : 'buddy-chat-sidebar'}>
           <div className="buddy-chat-sidebar-top">
