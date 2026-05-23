@@ -10,6 +10,15 @@ import {
   Users,
   type LucideIcon,
 } from 'lucide-react'
+import aboutSceneBg from '../assets/about-autism/about-scene-bg.png'
+import heroFamilyBridge from '../assets/about-autism/hero-family-bridge.png'
+import statChinaMap from '../assets/about-autism/stat-china-map.png'
+import statGlobe from '../assets/about-autism/stat-globe.png'
+import statHeart from '../assets/about-autism/stat-heart.png'
+import supportCommunity from '../assets/about-autism/support-community.png'
+import supportFamily from '../assets/about-autism/support-family.png'
+import supportSchool from '../assets/about-autism/support-school.png'
+import supportSociety from '../assets/about-autism/support-society.png'
 import aboutAutismHero from '../assets/about-autism-hero.png'
 import { Button } from '../shared/components/Button'
 import { Card } from '../shared/components/Card'
@@ -95,7 +104,166 @@ const sourceLinks = [
 
 const fullArticleText = articleText.join('\n')
 
+const posterStats = [
+  {
+    title: '全球估计',
+    value: '约 1 / 127',
+    note: 'WHO 估计，2021 年全球约每 127 人中有 1 人患有自闭症。',
+    image: statGlobe,
+  },
+  {
+    title: '中国儿童',
+    value: '约 200万-500万',
+    note: '公开报告口径不同，0-14 岁孤独症儿童数量多以估计区间呈现。',
+    image: statChinaMap,
+  },
+  {
+    title: '支持关键词',
+    value: '早发现 长陪伴',
+    note: '他们需要稳定、清晰、温和、可进入的环境与回应。',
+    image: statHeart,
+  },
+]
+
+const posterMyths = [
+  {
+    label: '误解一',
+    title: '孤独症孩子都是天才',
+    truth: '少数孩子可能有突出能力，但更多孩子需要长期、细致、稳定的支持。',
+  },
+  {
+    label: '误解二',
+    title: '不说话就是不喜欢别人',
+    truth: '沉默不一定是拒绝，回避视线也不一定是冷漠，很多孩子只是需要更安全的互动方式。',
+  },
+  {
+    label: '误解三',
+    title: '长大自然就会好',
+    truth: '成长需要持续支持，早期干预、家庭陪伴和融合环境都很重要。',
+  },
+  {
+    label: '误解四',
+    title: '多逼一逼就能学会',
+    truth: '催促和惩罚常常增加压力，清晰选择、耐心等待和温和回应更有效。',
+  },
+]
+
+const posterSupport = [
+  {
+    title: '家庭',
+    copy: '把表达练习放进吃饭、穿衣、出门等真实生活里，给孩子明确选择和足够等待。',
+    image: supportFamily,
+  },
+  {
+    title: '学校',
+    copy: '用稳定流程、可视化提示和友善同伴支持，帮助孩子有机会参与集体生活。',
+    image: supportSchool,
+  },
+  {
+    title: '社区',
+    copy: '少一点围观和指责，多一点理解、距离和善意。',
+    image: supportCommunity,
+  },
+  {
+    title: '社会',
+    copy: '提供持续、可及、尊重差异的服务，让孩子和家庭不必独自面对。',
+    image: supportSociety,
+  },
+]
+
 export function AboutAutismPage() {
+  return (
+    <PageShell activePath="/about-autism" contentClassName="about-infographic-main">
+      <section className="about-infographic" aria-labelledby="about-poster-title">
+        <img className="about-infographic-bg" src={aboutSceneBg} alt="" />
+
+        <div className="about-infographic-content">
+          <header className="about-infographic-hero">
+            <div className="about-title-paper">
+              <span>星桥计划公益认知页</span>
+              <h1 id="about-poster-title">了解来自星星的孩子</h1>
+              <p>
+                他们并不是离我们很远的人，只是感受世界、表达自己和靠近他人的方式，与多数人不同。
+              </p>
+            </div>
+            <img
+              className="about-family-asset"
+              src={heroFamilyBridge}
+              alt="纸艺风格的家长与孩子坐在星桥旁"
+            />
+          </header>
+
+          <section className="about-stat-strip" aria-label="孤独症儿童相关数据">
+            {posterStats.map((stat) => (
+              <article className="about-info-card about-stat-tile" key={stat.title}>
+                <img src={stat.image} alt="" />
+                <div>
+                  <span>{stat.title}</span>
+                  <strong>{stat.value}</strong>
+                  <p>{stat.note}</p>
+                </div>
+              </article>
+            ))}
+          </section>
+
+          <div className="about-poster-grid">
+            <section className="about-info-panel about-myth-panel" aria-labelledby="about-myth-title">
+              <div className="about-ribbon">常见误解</div>
+              <h2 id="about-myth-title">有些误解，正在让他们更难被看见</h2>
+              <div className="about-myth-grid">
+                {posterMyths.map((item) => (
+                  <article className="about-info-card about-myth-card" key={item.label}>
+                    <span>{item.label}</span>
+                    <strong>{item.title}</strong>
+                    <p>{item.truth}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <section className="about-info-panel about-support-panel" aria-labelledby="about-support-poster-title">
+              <div className="about-ribbon is-blue">怎样支持</div>
+              <h2 id="about-support-poster-title">真正的帮助，往往发生在日常里</h2>
+              <div className="about-support-tile-grid">
+                {posterSupport.map((item) => (
+                  <article className="about-info-card about-support-tile" key={item.title}>
+                    <img src={item.image} alt="" />
+                    <strong>{item.title}</strong>
+                    <p>{item.copy}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+          </div>
+
+          <section className="about-care-strip" aria-label="理解与关怀">
+            <article className="about-info-card about-care-note is-wide">
+              <strong>群体现状与关怀</strong>
+              <p>
+                他们不是标签，而是正在努力生活的孩子。很多时候，他们不是不想靠近这个世界，
+                而是这个世界对他们来说太快、太响、太复杂。
+              </p>
+            </article>
+            <article className="about-info-card about-care-note">
+              <strong>少一点标签，多一点理解</strong>
+              <p>少说“这孩子怎么这样”，多想一想“他是不是遇到了困难”。</p>
+            </article>
+            <article className="about-info-card about-care-note is-blue">
+              <strong>慢一点，也是一种支持</strong>
+              <p>很多孩子需要的不是更响的指令，而是更清晰、更温柔、更可预测的世界。</p>
+            </article>
+          </section>
+
+          <p className="about-data-note">
+            数据口径说明：全球数据参考世界卫生组织公开资料；中国相关数字采用公开报告中的估计区间，用于公众认知介绍。
+          </p>
+        </div>
+      </section>
+    </PageShell>
+  )
+}
+
+export function AboutAutismArticlePage() {
   return (
     <PageShell activePath="/about-autism">
       <section className="about-hero" aria-labelledby="about-title">

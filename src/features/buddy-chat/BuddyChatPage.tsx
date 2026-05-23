@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react'
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import {
   ChevronRight,
   Clock3,
@@ -12,14 +12,12 @@ import {
   Search,
   Send,
   Smile,
-  CircleCheck,
   MessageCircleMore,
   Plus,
 } from 'lucide-react'
 import { buddyChatArt } from '../../shared/assets/buddyChatArt'
 import { artAssets } from '../../shared/assets/art'
 import { Button } from '../../shared/components/Button'
-import { Card } from '../../shared/components/Card'
 import { PageShell } from '../../shared/components/PageShell'
 import { SpeakButton } from '../../shared/components/SpeakButton'
 import { buddyChatDefaultThreadId, buddyChatSystemPrompt, buddyChatThreads } from '../../shared/data/buddyChat'
@@ -80,6 +78,7 @@ export function BuddyChatPage() {
   const [isThinking, setIsThinking] = useState(false)
   const [statusMessage, setStatusMessage] = useState('已连接星桥小鹿')
   const [sidebarSearch, setSidebarSearch] = useState('')
+  const messageIdRef = useRef(0)
 
   const activeThread = useMemo(
     () => buddyChatThreads.find((thread) => thread.id === activeThreadId) ?? buddyChatThreads[0],
@@ -104,8 +103,11 @@ export function BuddyChatPage() {
       return
     }
 
+    const nextMessageId = messageIdRef.current + 1
+    messageIdRef.current = nextMessageId
+
     const userMessage: BuddyChatMessage = {
-      id: `msg-${Date.now()}`,
+      id: `msg-${nextMessageId}`,
       speaker: 'child',
       content: text,
       timeLabel: new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }),
@@ -113,7 +115,7 @@ export function BuddyChatPage() {
 
     const thread = activeThread
     const threadId = thread.id
-    const replyId = `reply-${Date.now()}`
+    const replyId = `reply-${nextMessageId}`
     const replyTimeLabel = new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })
     const reply: BuddyChatMessage = {
       id: replyId,
@@ -248,6 +250,25 @@ export function BuddyChatPage() {
           <Button className="buddy-chat-history-button" variant="ghost" icon={<Clock3 size={18} />}>
             查看全部聊天记录
           </Button>
+
+          <section className="buddy-chat-sidebar-emotion" aria-labelledby="buddy-chat-emotion-title">
+            <div className="buddy-chat-card-heading">
+              <Heart size={18} />
+              <h2 id="buddy-chat-emotion-title">情绪状态</h2>
+            </div>
+            <div className="buddy-chat-emotion-box">
+              <img src={buddyChatArt.emotionCloud} alt="" />
+              <strong>{activeThread.moodLabel}</strong>
+              <div className="buddy-chat-progress-row">
+                <span>情绪能量</span>
+                <div className="buddy-chat-progress-track">
+                  <div style={{ width: `${activeThread.moodProgress}%` }} />
+                </div>
+                <b>{activeThread.moodProgress}%</b>
+              </div>
+              <p>{activeThread.moodNote}</p>
+            </div>
+          </section>
         </aside>
 
         <main className="buddy-chat-main">
@@ -365,72 +386,6 @@ export function BuddyChatPage() {
             </div>
           </section>
         </main>
-
-        <aside className="buddy-chat-right-rail">
-          <Card className="buddy-chat-summary-card">
-            <div className="buddy-chat-card-heading">
-              <CircleCheck size={18} />
-              <h2>今天聊了什么</h2>
-            </div>
-            <ul className="buddy-chat-timeline">
-              {activeThread.timeline.map((item) => (
-                <li key={`${item.timeLabel}-${item.label}`}>
-                  <span>{item.timeLabel}</span>
-                  <p>{item.label}</p>
-                  {item.done ? <CircleCheck size={16} /> : <span className="buddy-chat-timeline-pending" />}
-                </li>
-              ))}
-            </ul>
-            <Button variant="ghost" icon={<ChevronRight size={18} />}>
-              查看完整内容
-            </Button>
-          </Card>
-
-          <Card className="buddy-chat-summary-card">
-            <div className="buddy-chat-card-heading">
-              <Heart size={18} />
-              <h2>情绪状态</h2>
-            </div>
-            <div className="buddy-chat-emotion-box">
-              <img src={buddyChatArt.emotionCloud} alt="" />
-              <strong>{activeThread.moodLabel}</strong>
-              <div className="buddy-chat-progress-row">
-                <span>情绪能量</span>
-                <div className="buddy-chat-progress-track">
-                  <div style={{ width: `${activeThread.moodProgress}%` }} />
-                </div>
-                <b>{activeThread.moodProgress}%</b>
-              </div>
-              <p>{activeThread.moodNote}</p>
-            </div>
-          </Card>
-
-          <Card className="buddy-chat-summary-card">
-            <div className="buddy-chat-card-heading">
-              <Clock3 size={18} />
-              <h2>最近记录</h2>
-            </div>
-            <div className="buddy-chat-history-list">
-              {buddyChatThreads.slice(0, 3).map((thread) => (
-                <button
-                  key={thread.id}
-                  className={thread.id === activeThread.id ? 'buddy-chat-history-item is-active' : 'buddy-chat-history-item'}
-                  type="button"
-                  onClick={() => setActiveThreadId(thread.id)}
-                >
-                  <span className="buddy-chat-history-dot" />
-                  <div>
-                    <strong>{thread.title}</strong>
-                    <span>{thread.startedAtLabel}</span>
-                  </div>
-                </button>
-              ))}
-            </div>
-            <Button variant="ghost" icon={<ChevronRight size={18} />}>
-              查看全部记录
-            </Button>
-          </Card>
-        </aside>
 
         <div className="buddy-chat-float-note">
           <img src={buddyChatArt.deerBedtime} alt="" />
