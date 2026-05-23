@@ -1,16 +1,17 @@
 import type { PropsWithChildren } from 'react'
 import { Link } from 'react-router-dom'
-import { Map, Trophy, Users } from 'lucide-react'
+import { Info, Map, Trophy, Users } from 'lucide-react'
 import { artAssets } from '../assets/art'
 
 const navItems = [
   { to: '/game', label: '游戏世界', icon: Map },
   { to: '/achievements', label: '游戏成就', icon: Trophy },
   { to: '/parent', label: '家长端', icon: Users },
+  { to: '/about-autism', label: '了解来自星星的孩子', icon: Info },
 ]
 
 type PageShellProps = PropsWithChildren<{
-  activePath: '/game' | '/achievements' | '/parent'
+  activePath: '/game' | '/achievements' | '/parent' | '/about-autism'
 }>
 
 export function PageShell({ activePath, children }: PageShellProps) {
