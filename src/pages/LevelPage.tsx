@@ -28,7 +28,7 @@ export function LevelPage() {
 
   const GameComponent = level ? levelComponents[level.mechanic] : null
 
-  if (level?.mechanic === 'sentence_blocks' && GameComponent) {
+  if ((level?.mechanic === 'sentence_blocks' || level?.mechanic === 'emotion_match') && GameComponent) {
     return (
       <GameComponent
         difficulty={level.difficulty}
