@@ -47,6 +47,15 @@ export const islands: IslandConfig[] = [
     themeSkill: 'daily_life_choice',
     levels: levels.filter((level) => level.islandId === 'starlight_market'),
   },
+  {
+    id: 'shopping_market',
+    name: '购物小镇',
+    description: '在超市场景里练习清单、询问、排队、结账和礼貌结束',
+    route: '/level/shopping-market-basic-01',
+    badgeId: 'market-navigator',
+    themeSkill: 'social_generalization',
+    levels: levels.filter((level) => level.islandId === 'shopping_market'),
+  },
 ]
 
 export function getIslandById(islandId: IslandConfig['id']) {

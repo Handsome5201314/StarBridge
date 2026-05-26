@@ -36,6 +36,13 @@ export const badges: BadgeConfig[] = [
     description: '能听懂购物任务，按物品、类别和生活情景选择合适商品。',
     unlockText: '完成星光超市三档购物任务后解锁。',
   },
+  {
+    id: 'market-navigator',
+    islandId: 'shopping_market',
+    name: '小小购物导航员',
+    description: '能把游戏中的清单、询问、排队和礼貌结束迁移到真实购物场景。',
+    unlockText: '完成购物小镇的超市场景任务后解锁。',
+  },
 ]
 
 export function getBadgeById(badgeId: string) {

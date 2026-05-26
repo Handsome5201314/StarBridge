@@ -10,4 +10,5 @@ export const badgeArtById: Record<string, string> = {
   'friendly-speech': friendlyBadge,
   'help-lantern': helpLanternBadge,
   'market-helper': marketBadge,
+  'market-navigator': marketBadge,
 }

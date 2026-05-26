@@ -4,6 +4,7 @@ node_modules/
 dist/
 build/
 .vite/
+.codex-run/
 
 local-data/*.json
 !local-data/.gitkeep

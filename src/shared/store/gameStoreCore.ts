@@ -16,6 +16,7 @@ export const initialProgress: PlayerProgress = {
     'friendly-speech': 0,
     'help-lantern': 0,
     'market-helper': 0,
+    'market-navigator': 0,
   },
   buddyGrowth: {
     stage: 1,
@@ -33,6 +34,7 @@ export type GameAction =
   | { type: 'generateRealLifeTask'; result: LevelResult }
   | { type: 'completeRealLifeTask'; taskId: string }
   | { type: 'addBuddyExp'; exp: number }
+  | { type: 'replaceProgress'; progress: PlayerProgress }
   | { type: 'resetDemoProgress' }
 
 export type GameActions = {
@@ -49,6 +51,10 @@ export type GameActions = {
 export type GameStore = {
   progress: PlayerProgress
   actions: GameActions
+}
+
+type LocalStorageReader = {
+  getItem(key: string): string | null
 }
 
 export const GameStoreContext = createContext<GameStore | null>(null)
@@ -115,37 +121,64 @@ export function gameReducer(state: PlayerProgress, action: GameAction): PlayerPr
       return completeRealLifeTaskInProgress(state, action.taskId)
     case 'addBuddyExp':
       return { ...state, buddyGrowth: addBuddyExpToGrowth(state.buddyGrowth, action.exp) }
+    case 'replaceProgress':
+      return normalizeProgress(action.progress)
     case 'resetDemoProgress':
       return initialProgress
   }
 }
 
 export function loadProgress(): PlayerProgress {
-  if (typeof window === 'undefined') {
+  const localStorage = getLocalStorageReader()
+
+  if (!localStorage) {
     return initialProgress
   }
 
   try {
-    const rawProgress = window.localStorage.getItem(STORAGE_KEY)
+    const rawProgress = localStorage.getItem(STORAGE_KEY)
     if (!rawProgress) {
       return initialProgress
     }
 
-    const parsedProgress = JSON.parse(rawProgress) as PlayerProgress
-    return {
-      ...initialProgress,
-      ...parsedProgress,
-      badgeProgress: {
-        ...initialProgress.badgeProgress,
-        ...parsedProgress.badgeProgress,
-      },
-      buddyGrowth: {
-        ...initialProgress.buddyGrowth,
-        ...parsedProgress.buddyGrowth,
-      },
-    }
+    return normalizeProgress(JSON.parse(rawProgress))
   } catch {
     return initialProgress
+  }
+}
+
+function getLocalStorageReader(): LocalStorageReader | null {
+  const maybeBrowser = globalThis as typeof globalThis & {
+    window?: { localStorage?: LocalStorageReader }
+  }
+
+  return maybeBrowser.window?.localStorage ?? null
+}
+
+export function normalizeProgress(progress: PlayerProgress): PlayerProgress {
+  return {
+    ...initialProgress,
+    ...progress,
+    completedLevelIds: Array.isArray(progress.completedLevelIds)
+      ? progress.completedLevelIds
+      : initialProgress.completedLevelIds,
+    collectedCardIds: Array.isArray(progress.collectedCardIds)
+      ? progress.collectedCardIds
+      : initialProgress.collectedCardIds,
+    badgeProgress: {
+      ...initialProgress.badgeProgress,
+      ...progress.badgeProgress,
+    },
+    buddyGrowth: {
+      ...initialProgress.buddyGrowth,
+      ...progress.buddyGrowth,
+    },
+    todaySkillTags: Array.isArray(progress.todaySkillTags)
+      ? progress.todaySkillTags
+      : initialProgress.todaySkillTags,
+    realLifeTasks: Array.isArray(progress.realLifeTasks)
+      ? progress.realLifeTasks
+      : initialProgress.realLifeTasks,
   }
 }
 

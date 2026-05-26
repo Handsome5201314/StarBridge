@@ -8,6 +8,51 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-6.0-3178c6?logo=typescript&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-8.0-646cff?logo=vite&logoColor=white)
 
+## 本地开发与可部署 MVP
+
+当前仓库根目录就是星桥计划主项目。新版架构不再放到 `v2/` 或旧 Demo 子目录里，前端继续沿用现有纸艺地图、关卡、成就和家长端界面，在此基础上接入 Express API、Prisma 和 Postgres。
+
+### 本地双服务开发
+
+```bash
+npm install
+npm run db:generate
+
+# 终端 1：启动 API，默认用内存仓库和 STARBRIDGE-DEMO 邀请码
+set STARBRIDGE_REPOSITORY=memory
+set HOST=127.0.0.1
+set PORT=5174
+npm run dev:api
+
+# 终端 2：启动前端，/api 会代理到 Express
+set VITE_API_PROXY_TARGET=http://127.0.0.1:5174
+npm run dev:web
+```
+
+打开 `http://127.0.0.1:5175`。前端会自动领取默认邀请码 `STARBRIDGE-DEMO` 进入体验；如果 API 不可用，会退回原 localStorage 演示进度，不影响本地展示。
+
+### Docker Compose 公网映射入口
+
+```bash
+docker compose -f docker-compose.dev.yml up
+```
+
+默认服务：
+
+- Web：`http://127.0.0.1:5175`
+- API：`http://127.0.0.1:5174/api/health`
+- 网关：`http://127.0.0.1:5280`
+
+Cloudflare Tunnel 指向本地网关端口即可。网关保留 `/api/`、`/collab/` 和前端入口；飞书协作中枢仍保持独立，只通过 `/collab/` 反向代理连接。
+
+### 关键命令
+
+```bash
+npm test
+npm run build
+docker compose -f docker-compose.dev.yml config --quiet
+```
+
 ## 💫 为什么做这个
 
 人们常把孤独症儿童称为 **「来自星星的孩子」**。这个名字很美,但在美好的称呼之外,他们和他们的家庭面对的,往往是漫长、具体而日常的现实。

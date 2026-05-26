@@ -1849,6 +1849,8 @@ h3 {
 }
 
 .parent-fallback-practice {
+  display: grid;
+  gap: 18px;
   width: min(1120px, 100%);
   margin: 22px auto 0;
   font-family:
@@ -1856,7 +1858,8 @@ h3 {
     sans-serif;
 }
 
-.parent-fallback-practice .practice-panel {
+.parent-fallback-practice .practice-panel,
+.parent-fallback-practice .feedback-panel {
   background: rgba(255, 246, 230, 0.88);
   border: 2px dashed rgba(123, 88, 54, 0.22);
   box-shadow: 0 16px 28px rgba(74, 51, 38, 0.1);
@@ -5371,6 +5374,7 @@ h3 {
   outline-offset: 4px;
 }
 
+
 .market-game-screen {
   min-height: 100vh;
   color: #4a3326;
@@ -5478,11 +5482,146 @@ h3 {
   font-weight: 950;
 }
 
+.social-scenario-screen {
+  min-height: 100vh;
+  padding: clamp(14px, 2.5vw, 28px);
+  color: #4d3a2d;
+  background:
+    linear-gradient(180deg, rgba(235, 245, 239, 0.94), rgba(244, 238, 221, 0.96)),
+    #edf4ed;
+}
+
+.scenario-topbar {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  max-width: 1320px;
+  margin: 0 auto 16px;
+}
+
+.scenario-progress {
+  height: 16px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(115, 139, 111, 0.18);
+  border: 2px solid rgba(255, 255, 255, 0.75);
+}
+
+.scenario-progress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #86a65c, #5f9c91);
+  transition: width 220ms ease;
+}
+
+.scenario-market-stage {
+  display: grid;
+  grid-template-columns: minmax(360px, 0.92fr) minmax(380px, 0.78fr);
+  gap: clamp(16px, 2vw, 28px);
+  align-items: stretch;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.scenario-market-visual,
+.scenario-panel {
+  border-radius: 8px;
+  border: 2px dashed rgba(106, 82, 58, 0.2);
+  box-shadow: 0 16px 28px rgba(76, 58, 44, 0.12);
+}
+
+.scenario-market-visual {
+  position: relative;
+  min-height: 640px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(255, 250, 235, 0.92), rgba(229, 239, 228, 0.94)),
+    #eaf2e6;
+}
+
+.scenario-market-awning {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 92px;
+  background:
+    repeating-linear-gradient(90deg, #d88973 0 58px, #f6ead6 58px 116px);
+  border-bottom: 8px solid rgba(111, 87, 64, 0.18);
+}
+
+.scenario-market-shelf,
+.scenario-market-counter,
+.scenario-market-helper {
+  position: absolute;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.76);
+  box-shadow: 0 12px 20px rgba(76, 58, 44, 0.12);
+}
+
+.scenario-market-shelf {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  width: 72%;
+  min-height: 132px;
+  padding: 18px;
+  background: rgba(255, 248, 230, 0.92);
+}
+
+.scenario-market-shelf span {
+  display: grid;
+  min-height: 82px;
+  place-items: center;
+  border-radius: 8px;
+  color: #5d4939;
+  background: #dceccf;
+  border: 2px dashed rgba(106, 82, 58, 0.18);
+  font-size: clamp(18px, 1.6vw, 24px);
+  font-weight: 950;
+}
+
+.scenario-shelf-a {
+  top: 150px;
+  left: 8%;
+}
+
+.scenario-shelf-b {
+  top: 330px;
+  right: 8%;
+}
+
+.scenario-market-counter {
+  right: 8%;
+  bottom: 58px;
+  display: grid;
+  width: 34%;
+  min-height: 118px;
+  place-items: center;
+  color: #fffaf0;
+  background: #6f9b8c;
+  font-size: clamp(22px, 2vw, 32px);
+
+  font-weight: 950;
+}
+
 .market-helper {
+
   display: grid;
   grid-template-columns: 112px minmax(0, 1fr);
   align-items: center;
   gap: 8px;
+}
+
+.scenario-market-helper {
+  left: 12%;
+  bottom: 72px;
+  display: grid;
+  width: 118px;
+  height: 118px;
+  place-items: center;
+  color: #5a7d55;
+  background: #fffaf0;
 }
 
 .market-helper img {
@@ -6127,6 +6266,176 @@ h3 {
   }
 }
 
+.scenario-panel {
+  display: grid;
+  align-content: start;
+  gap: 18px;
+  padding: clamp(18px, 2.2vw, 28px);
+  background: rgba(255, 250, 235, 0.96);
+}
+
+.scenario-panel h1 {
+  font-size: clamp(38px, 5vw, 64px);
+  font-weight: 950;
+}
+
+.scenario-step-meta,
+.scenario-prompt-row,
+.scenario-feedback,
+.scenario-voice-box,
+.social-hub-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.scenario-step-meta {
+  width: fit-content;
+  max-width: 100%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: #315f5b;
+  background: rgba(220, 236, 207, 0.86);
+  font-weight: 950;
+}
+
+.scenario-text,
+.scenario-prompt-row p {
+  color: #5e4939;
+  font-size: clamp(18px, 1.8vw, 22px);
+  font-weight: 850;
+  line-height: 1.65;
+}
+
+.scenario-prompt-row {
+  justify-content: space-between;
+  align-items: start;
+  padding: 14px;
+  border-radius: 8px;
+  background: rgba(227, 240, 233, 0.82);
+  border: 2px dashed rgba(95, 156, 145, 0.18);
+}
+
+.scenario-choice-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.scenario-choice {
+  min-height: 74px;
+  padding: 16px 18px;
+  border-radius: 8px;
+  color: #4d3a2d;
+  background: #fff8e6;
+  border: 2px solid rgba(255, 255, 255, 0.72);
+  box-shadow: 0 10px 18px rgba(76, 58, 44, 0.09);
+  font-size: clamp(17px, 1.5vw, 21px);
+  font-weight: 950;
+  text-align: left;
+  cursor: pointer;
+}
+
+.scenario-choice:hover,
+.sensor-sample-grid button:hover,
+.prompt-level-control button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 22px rgba(76, 58, 44, 0.13);
+}
+
+.scenario-feedback,
+.scenario-voice-box {
+  min-height: 54px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-weight: 850;
+  line-height: 1.45;
+}
+
+.scenario-feedback {
+  color: #315f5b;
+  background: rgba(220, 236, 207, 0.82);
+}
+
+.scenario-voice-box {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  color: #694833;
+  background: rgba(255, 240, 211, 0.86);
+  border: 2px dashed rgba(123, 88, 54, 0.18);
+}
+
+.scenario-complete {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+  color: #315f5b;
+}
+
+.social-hub-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  width: min(1180px, 100%);
+  margin: 0 auto 18px;
+}
+
+.social-hub-card {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  color: #4a3326;
+  background: rgba(255, 250, 235, 0.9);
+}
+
+.social-hub-card h2 {
+  font-size: clamp(22px, 2vw, 30px);
+  font-weight: 950;
+}
+
+.social-hub-card p,
+.reflection-list {
+  color: #5e4939;
+  font-size: 16px;
+  font-weight: 780;
+  line-height: 1.65;
+}
+
+.prompt-level-control,
+.role-card-list,
+.sensor-sample-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.prompt-level-control button,
+.role-card-list span,
+.sensor-sample-grid button {
+  min-height: 42px;
+  padding: 9px 13px;
+  border-radius: 8px;
+  color: #4d3a2d;
+  background: rgba(238, 247, 242, 0.92);
+  border: 2px dashed rgba(95, 156, 145, 0.2);
+  font-weight: 900;
+}
+
+.prompt-level-control button.is-selected {
+  color: #fffaf0;
+  background: #5f9c91;
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.reflection-list {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.coach-artifact-card {
+  background: rgba(240, 247, 241, 0.92);
+
+}
+
 @media (max-width: 1180px) {
   .help-game-stage {
     grid-template-columns: 1fr;
@@ -6150,6 +6459,15 @@ h3 {
   .help-ribbon,
   .help-big-lantern {
     grid-column: 1;
+  }
+
+  .scenario-market-stage,
+  .social-hub-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .scenario-market-visual {
+    min-height: 520px;
   }
 }
 
@@ -6189,6 +6507,41 @@ h3 {
     width: 3px;
     height: 20px;
     align-self: center;
+  }
+
+  .scenario-topbar,
+  .scenario-voice-box {
+    grid-template-columns: 1fr;
+  }
+
+  .scenario-market-stage {
+    grid-template-columns: 1fr;
+  }
+
+  .scenario-market-visual {
+    min-height: 460px;
+  }
+
+  .scenario-market-shelf {
+    width: 84%;
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .scenario-market-shelf span {
+    min-height: 48px;
+  }
+
+  .scenario-shelf-a {
+    top: 112px;
+  }
+
+  .scenario-shelf-b {
+    top: 276px;
+  }
+
+  .scenario-market-counter {
+    width: 46%;
   }
 }
 
@@ -6779,6 +7132,11 @@ h3 {
   }
 
   .map-node-shell:nth-of-type(5) {
+    left: 50% !important;
+    top: 74% !important;
+  }
+
+  .map-node-shell:nth-of-type(6) {
     left: 64% !important;
     top: 81% !important;
   }

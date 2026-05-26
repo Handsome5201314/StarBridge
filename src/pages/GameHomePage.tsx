@@ -63,6 +63,17 @@ const mapNodes: MapNode[] = [
     width: '23%',
   },
   {
+    id: 'shopping-town',
+    title: '购物小镇',
+    description: '在超市里练习看清单、询问店员、排队结账和礼貌结束。',
+    status: '新开放',
+    route: '/level/shopping-market-basic-01',
+    art: mapIslandAssets.queueCastle,
+    x: '50%',
+    y: '73%',
+    width: '21%',
+  },
+  {
     id: 'sentence-blocks',
     title: '句子积木岛',
     description: '用词语积木拼出自己的想法。',

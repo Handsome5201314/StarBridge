@@ -38,6 +38,8 @@ export function getBadgeKey(islandId: IslandId) {
       return 'help-lantern'
     case 'starlight_market':
       return 'market-helper'
+    case 'shopping_market':
+      return 'market-navigator'
   }
 }
 

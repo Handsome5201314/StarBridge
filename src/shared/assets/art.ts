@@ -49,4 +49,5 @@ export const islandArtById: Record<IslandId, string> = {
   greeting_match: greetingIslandArt,
   help_valley: helpValleyIslandArt,
   starlight_market: starlightMarketIslandArt,
+  shopping_market: queueCastleMapIsland,
 }

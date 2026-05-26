@@ -2,6 +2,9 @@ import type { CSSProperties } from 'react'
 import { useEffect, useMemo, useState } from 'react'
 import panelArt from '../assets/parent/parent-advice-panel.png'
 import parentBg from '../assets/parent/parent-papercraft-bg.png'
+import { AIPracticeSuggestions } from '../features/parent/AIPracticeSuggestions'
+import { ParentFeedbackPanel } from '../features/parent/ParentFeedbackPanel'
+import { SocialGeneralizationHub } from '../features/parent/SocialGeneralizationHub'
 import { PageShell } from '../shared/components/PageShell'
 import { useGameStore } from '../shared/store/useGameStore'
 import {
@@ -15,15 +18,29 @@ type AdviceState =
   | { status: 'loading'; content: string; source: 'deepseek' | 'fallback' }
   | { status: 'ready'; content: string; source: 'deepseek' | 'fallback' }
 
+type AdviceResultState = {
+  key: string
+  result: ParentAdviceResult
+}
+
 export function ParentPage() {
   const { progress } = useGameStore()
   const skills = useMemo(() => getTodaySkillLabels(progress), [progress])
   const fallbackAdvice = useMemo(() => getFallbackParentAdvice(progress), [progress])
-  const [advice, setAdvice] = useState<AdviceState>({
-    status: 'loading',
-    content: fallbackAdvice,
-    source: 'fallback',
-  })
+  const adviceKey = useMemo(
+    () =>
+      JSON.stringify({
+        cards: progress.collectedCardIds,
+        levels: progress.completedLevelIds,
+        skills: progress.todaySkillTags,
+      }),
+    [progress.collectedCardIds, progress.completedLevelIds, progress.todaySkillTags],
+  )
+  const [adviceResult, setAdviceResult] = useState<AdviceResultState | null>(null)
+  const currentAdviceResult = adviceResult?.key === adviceKey ? adviceResult.result : null
+  const advice: AdviceState = currentAdviceResult
+    ? { status: 'ready', content: currentAdviceResult.content, source: currentAdviceResult.source }
+    : { status: 'loading', content: fallbackAdvice, source: 'fallback' }
   const shellStyle = {
     '--parent-background-image': `url(${parentBg})`,
   } as CSSProperties
@@ -31,29 +48,23 @@ export function ParentPage() {
   useEffect(() => {
     let isCurrent = true
 
-    Promise.resolve().then(() => {
-      if (!isCurrent) return
-      setAdvice({ status: 'loading', content: fallbackAdvice, source: 'fallback' })
-    })
-
     getDeepseekParentAdvice(progress)
       .then((result: ParentAdviceResult) => {
         if (!isCurrent) return
-        setAdvice({
-          status: 'ready',
-          content: result.content,
-          source: result.source,
-        })
+        setAdviceResult({ key: adviceKey, result })
       })
       .catch(() => {
         if (!isCurrent) return
-        setAdvice({ status: 'ready', content: fallbackAdvice, source: 'fallback' })
+        setAdviceResult({
+          key: adviceKey,
+          result: { content: fallbackAdvice, source: 'fallback' },
+        })
       })
 
     return () => {
       isCurrent = false
     }
-  }, [fallbackAdvice, progress])
+  }, [adviceKey, fallbackAdvice, progress])
 
   return (
     <PageShell
@@ -93,6 +104,12 @@ export function ParentPage() {
             <p aria-busy={advice.status === 'loading'}>{advice.content}</p>
           </section>
         </article>
+      </section>
+
+      <section className="parent-fallback-practice" aria-label="现实练习与回流">
+        <SocialGeneralizationHub />
+        <AIPracticeSuggestions />
+        <ParentFeedbackPanel />
       </section>
     </PageShell>
   )

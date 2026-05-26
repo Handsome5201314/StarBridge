@@ -11,6 +11,11 @@ export const skillLabels: Record<SkillTag, string> = {
   use_polite_words: '使用请和谢谢',
   take_turns: '轮流互动',
   daily_life_choice: '生活情景选择',
+  shopping: '购物清单',
+  role_play: '角色扮演',
+  money_exchange: '结账交换',
+  social_generalization: '社交泛化',
+  conversation_repair: '对话修复',
 }
 
 export const skillDescriptions: Record<SkillTag, string> = {
@@ -22,6 +27,11 @@ export const skillDescriptions: Record<SkillTag, string> = {
   use_polite_words: '在真实互动里使用礼貌语建立良好关系。',
   take_turns: '理解等待和轮流，让互动更顺畅。',
   daily_life_choice: '能听懂生活任务，并在物品、类别和情景中做出合适选择。',
+  shopping: '把清单、货架和商品选择连接起来。',
+  role_play: '在安全角色扮演中练习真实社交脚本。',
+  money_exchange: '理解排队、付款和拿回物品的基本顺序。',
+  social_generalization: '把游戏中的社交规则迁移到真实生活场景。',
+  conversation_repair: '没听懂或没找到时，能再次询问并修复互动。',
 }
 
 export function getRecommendedLevel(progress: PlayerProgress) {

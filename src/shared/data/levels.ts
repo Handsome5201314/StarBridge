@@ -131,6 +131,16 @@ export const levels: LevelConfig[] = [
     rewardStars: 1,
     mechanic: 'starlight_market',
   },
+  {
+    id: 'shopping-market-basic-01',
+    islandId: 'shopping_market',
+    title: '超市任务：买酸奶',
+    difficulty: 'advanced',
+    targetSkill: 'social_generalization',
+    rewardCardIds: ['shopping-list-helper'],
+    rewardStars: 2,
+    mechanic: 'social_scenario',
+  },
 ]
 
 export function getLevelById(levelId: string) {

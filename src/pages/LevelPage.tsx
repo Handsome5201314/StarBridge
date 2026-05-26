@@ -6,6 +6,7 @@ import { FriendlySpeechMatchGame } from '../features/levels/FriendlySpeechMatchG
 import { HelpValleyGame } from '../features/levels/HelpValleyGame'
 import { SentenceBlocksGame } from '../features/levels/SentenceBlocksGame'
 import { StarlightMarketGame } from '../features/levels/StarlightMarketGame'
+import { SocialScenarioGame } from '../features/levels/SocialScenarioGame'
 import { Button } from '../shared/components/Button'
 import { Card } from '../shared/components/Card'
 import { PageShell } from '../shared/components/PageShell'
@@ -35,7 +36,8 @@ export function LevelPage() {
       level?.mechanic === 'emotion_match' ||
       level?.mechanic === 'friendly_speech_match' ||
       level?.mechanic === 'help_valley' ||
-      level?.mechanic === 'starlight_market') &&
+      level?.mechanic === 'starlight_market' ||
+      level?.mechanic === 'social_scenario') &&
     GameComponent
   ) {
     return (
@@ -124,4 +126,5 @@ const levelComponents: Record<string, (props: LevelComponentProps) => ReactEleme
   friendly_speech_match: FriendlySpeechMatchGame,
   help_valley: HelpValleyGame,
   starlight_market: StarlightMarketGame,
+  social_scenario: SocialScenarioGame,
 }

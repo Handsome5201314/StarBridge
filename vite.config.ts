@@ -130,6 +130,12 @@ export default defineConfig(({ mode }) => {
     ],
     server: {
       host: '0.0.0.0',
+      proxy: {
+        '/api': {
+          target: firstEnvValue(env.VITE_API_PROXY_TARGET) ?? 'http://127.0.0.1:5174',
+          changeOrigin: true,
+        },
+      },
     },
   }
 })

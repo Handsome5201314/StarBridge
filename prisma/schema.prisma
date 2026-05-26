@@ -1,0 +1,163 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum InviteStatus {
+  active
+  revoked
+}
+
+model InviteCode {
+  id        String       @id @default(cuid())
+  code      String       @unique
+  status    InviteStatus @default(active)
+  maxUses   Int          @default(1)
+  usedCount Int          @default(0)
+  expiresAt DateTime?
+  note      String?
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  sessions FamilySession[]
+}
+
+model FamilySession {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  inviteCode String
+  childId   String
+  progress  Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  invite InviteCode   @relation(fields: [inviteCode], references: [code])
+  child  ChildProfile @relation(fields: [childId], references: [id])
+  events BehaviorEvent[]
+  learnerProfile LearnerProfile?
+  sceneAttempts SceneAttempt[]
+  voiceProfiles VoiceProfile[]
+  sensorEvents SensorEvent[]
+  aiCoachArtifacts AICoachArtifact[]
+}
+
+model ChildProfile {
+  id        String   @id @default(cuid())
+  nickname  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sessions FamilySession[]
+}
+
+model BehaviorEvent {
+  id        String   @id @default(cuid())
+  sessionId String
+  eventType String
+  details   Json?
+  createdAt DateTime @default(now())
+
+  session FamilySession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId, createdAt])
+  @@index([eventType])
+}
+
+model LearnerProfile {
+  id                  String   @id @default(cuid())
+  sessionId           String   @unique
+  ageBand             String
+  supportLevel        String
+  preferredVoice      String
+  toleratedModalities Json
+  promptPreference    String
+  generalizationGoals Json
+  notes               String
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  session FamilySession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+}
+
+model SceneAttempt {
+  id               String   @id
+  sessionId        String
+  sceneId          String
+  levelId          String
+  promptLevel      String
+  targetSkill      String
+  currentStepId    String
+  completedStepIds Json
+  status           String
+  startedAt        DateTime
+  completedAt      DateTime?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  session FamilySession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  stepEvents SceneStepEvent[]
+
+  @@index([sessionId, sceneId])
+  @@index([sessionId, status])
+}
+
+model SceneStepEvent {
+  id        String   @id @default(cuid())
+  attemptId String
+  stepId    String
+  choiceId  String
+  accepted  Boolean
+  createdAt DateTime @default(now())
+
+  attempt SceneAttempt @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+
+  @@index([attemptId, createdAt])
+}
+
+model VoiceProfile {
+  id             String   @id
+  sessionId      String
+  displayName    String
+  consentGranted Boolean
+  purpose        String
+  status         String
+  createdAt      DateTime @default(now())
+
+  session FamilySession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId, createdAt])
+}
+
+model SensorEvent {
+  id             String   @id @default(cuid())
+  sessionId      String
+  modality       String
+  metric         String
+  value          Json
+  confidence     Float
+  recordedAt     DateTime
+  rawMediaStored Boolean  @default(false)
+  createdAt      DateTime @default(now())
+
+  session FamilySession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId, recordedAt])
+  @@index([modality, metric])
+}
+
+model AICoachArtifact {
+  id        String   @id @default(cuid())
+  sessionId String
+  sceneId   String
+  artifact  Json
+  source    String
+  createdAt DateTime @default(now())
+
+  session FamilySession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId, sceneId])
+}

@@ -105,6 +105,14 @@ export const cards: CardConfig[] = [
     voiceText: '妈妈感冒了，可以买药品。',
     skillTag: 'daily_life_choice',
   },
+  {
+    id: 'shopping-list-helper',
+    type: 'shopping',
+    name: '购物清单助手',
+    description: '先看清单，再找商品；找不到时向可靠工作人员询问。',
+    voiceText: '你好，请问原味酸奶在哪里？',
+    skillTag: 'social_generalization',
+  },
 ]
 
 export function getCardById(cardId: string) {
